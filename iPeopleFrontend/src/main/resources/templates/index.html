@@ -25,7 +25,9 @@
 				<td><input id="kim_input" readonly style="display:none"><button id="KimGenBtn">KIM generieren</button></td>
 			</tr>
 		</table>
-		<button class="IPeopleElementWithMargin" onclick="alert(httpGet(null))">Speichern</button>
+		<button class="IPeopleElementWithMargin" onclick="alert(httpGetAsync('http://localhost:8080/KIM/123'))">Speichern</button>
+		<button onclick="alert('AAA')">Try it</button>
+		<!-- + httpGetAsync('http://localhost:8080/KIM/123')-->
 	</div>
 </body>
 </html>

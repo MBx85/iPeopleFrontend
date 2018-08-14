@@ -18,10 +18,19 @@ function GenerateKIM() {
 }
 
 function httpGet(theUrl) {
-	var finalURL = "http://localhost:8080/KIM/123";
 	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", finalURL, true); // false for synchronous request
-	//xmlHttp.setRequestHeader("origin", "*");
+	xmlHttp.open("GET", theUrl, false); // false for synchronous request
 	xmlHttp.send(null);
 	return xmlHttp.responseText;
+}
+
+function httpGetAsync(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            return xmlHttp.responseText;
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
 }
