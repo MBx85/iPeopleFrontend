@@ -14,7 +14,7 @@
 		<table class="InputMask">
 			<tr>
 				<td>Vorname</td>
-				<td><input type="text"id="vn_input"></td>
+				<td><input type="text" id="vn_input"></td>
 			</tr>
 			<tr>
 				<td>Nachname</td>
@@ -24,10 +24,14 @@
 				<td>KIM</td>
 				<td><input id="kim_input" readonly style="display:none"><button id="KimGenBtn">KIM generieren</button></td>
 			</tr>
+			<tr>
+				<td>JSON</td>
+				<td><input id="json_input"></td>
+			</tr>
 		</table>
-		<button class="IPeopleElementWithMargin" onclick="alert(httpGetAsync('http://localhost:8080/KIM/123'))">Speichern</button>
-		<button onclick="alert('AAA')">Try it</button>
-		<!-- + httpGetAsync('http://localhost:8080/KIM/123')-->
+		<button class="IPeopleElementWithMargin" id="SaveBtn">Speichern</button>
+		<!-- onclick="httpGetAsync('http://localhost:8080/KIM/123')"-->
 	</div>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 function GetOnLoadStuff() {
 	GetGenerateKIMListener();
+	GetSaveBtnListener();
 }
 
 function GetGenerateKIMListener() {
@@ -12,25 +13,51 @@ function GetGenerateKIMListener() {
 	})
 }
 
+function GetSaveBtnListener() {
+	var SaveBTN = document.getElementById("SaveBtn");
+	SaveBTN.addEventListener("click", function () {
+		httpGetAsyncPassResponse("http://localhost:8080/KIM/123456", ParseJSONandDoLogic);
+	})
+}
+
 function GenerateKIM() {
 	var kim = "123456";
 	return kim;
 }
 
+/* synchronous requests are bad pracitce
 function httpGet(theUrl) {
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", theUrl, false); // false for synchronous request
 	xmlHttp.send(null);
 	return xmlHttp.responseText;
+}*/
+
+function ParseJSONandDoLogic(response){
+	var obj = JSON.parse(response);
+	document.getElementById("json_input").value =   obj.nachname + " " + obj.vorname;
 }
 
-function httpGetAsync(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            return xmlHttp.responseText;
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
+function httpGetAsyncPassResponse(theUrl, callback) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function () {
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+		callback(xmlHttp.responseText);
+	}
+	xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+	xmlHttp.send(null);
 }
+
+/* THIS IS WORKING
+function httpGetAsync(theUrl) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function () {
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+		var obj = JSON.parse(xmlHttp.responseText);
+		document.getElementById("json_input").value = obj.vorname + " " + obj.nachname;
+	}
+
+	xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+	xmlHttp.send(null);
+}
+*/
