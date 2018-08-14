@@ -1,11 +1,31 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>iPeople Frontend</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="js/iPeople.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/iPeople.css">
 </head>
-<body>
-<h1>Hallo!</h1>
-<!-- <p th:text="'Hello, ' + ${name} + '!'" /> -->
+
+<body onload="GetOnLoadStuff()">
+	<div id="InputMask" class="generalIPeople">
+		<div class="IPeopleHeader">iPeople 1.0</div>
+		<table class="InputMask">
+			<tr>
+				<td>Vorname</td>
+				<td><input type="text"id="vn_input"></td>
+			</tr>
+			<tr>
+				<td>Nachname</td>
+				<td><input type="text" id="nn_input"></td>
+			</tr>
+			<tr>
+				<td>KIM</td>
+				<td><input id="kim_input" readonly style="display:none"><button id="KimGenBtn">KIM generieren</button></td>
+			</tr>
+		</table>
+		<button class="IPeopleElementWithMargin" onclick="alert(httpGet(null))">Speichern</button>
+	</div>
 </body>
 </html>
