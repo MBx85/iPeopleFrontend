@@ -21,11 +21,12 @@ function GetSaveBtnListener() {
 
 	var SaveBTNnew = document.getElementById("SaveBtn_new");
 	SaveBTNnew.addEventListener("click", function () {
-		SendKIMToBackend();
+		SendKIMToBackend("http://localhost:8090/IPeopleKIM/");
 	})
 }
 
 function GenerateKIM() {
+	/* this is still a stub*/
 	var kim = "123456";
 	return kim;
 }
@@ -38,12 +39,17 @@ function httpGet(theUrl) {
 	return xmlHttp.responseText;
 }*/
 
-function SendKIMToBackend(){
+function SendKIMToBackend(theUrl){
 	var obj = new Object();
 	obj.vorname = document.getElementById("vn_input").value
 	obj.nachname = document.getElementById("nn_input").value
 	obj.kim = document.getElementById("kim_input").value
-	document.getElementById("json_input").value = JSON.stringify(obj);
+	var jsonstring = JSON.stringify(obj);
+	document.getElementById("json_input").value = jsonstring;
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("PUT", theUrl + obj.kim, true); // true for asynchronous 
+	xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+	xmlHttp.send(jsonstring);
 }
 
 function ParseJSONandDoLogic(response){
