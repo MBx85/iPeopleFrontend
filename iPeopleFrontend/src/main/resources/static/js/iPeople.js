@@ -18,6 +18,11 @@ function GetSaveBtnListener() {
 	SaveBTN.addEventListener("click", function () {
 		httpGetAsyncPassResponse("http://localhost:8080/KIM/123456", ParseJSONandDoLogic);
 	})
+
+	var SaveBTNnew = document.getElementById("SaveBtn_new");
+	SaveBTNnew.addEventListener("click", function () {
+		SendKIMToBackend();
+	})
 }
 
 function GenerateKIM() {
@@ -32,6 +37,12 @@ function httpGet(theUrl) {
 	xmlHttp.send(null);
 	return xmlHttp.responseText;
 }*/
+
+function SendKIMToBackend(){
+	var obj = new Object();
+	obj.vorname = document.getElementById("vn_input").value
+	document.getElementById("json_input").value = JSON.stringify(obj);
+}
 
 function ParseJSONandDoLogic(response){
 	var obj = JSON.parse(response);
