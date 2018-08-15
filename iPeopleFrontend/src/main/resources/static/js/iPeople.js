@@ -41,6 +41,7 @@ function httpGet(theUrl) {
 function SendKIMToBackend(){
 	var obj = new Object();
 	obj.vorname = document.getElementById("vn_input").value
+	obj.nachname = document.getElementById("nn_input").value
 	document.getElementById("json_input").value = JSON.stringify(obj);
 }
 
