@@ -14,11 +14,6 @@ function GetGenerateKIMListener() {
 }
 
 function GetSaveBtnListener() {
-	var SaveBTN = document.getElementById("SaveBtn");
-	SaveBTN.addEventListener("click", function () {
-		httpGetAsyncPassResponse("http://localhost:8080/KIM/123456", ParseJSONandDoLogic);
-	})
-
 	var SaveBTNnew = document.getElementById("SaveBtn_new");
 	SaveBTNnew.addEventListener("click", function () {
 		SendKIMToBackend("http://localhost:8090/IPeopleKIM/");
@@ -26,42 +21,38 @@ function GetSaveBtnListener() {
 }
 
 function GenerateKIM() {
-	/* this is still a stub*/
-	var kim = "123456";
-	return kim;
+	httpGetAsyncPassResponse("http://localhost:8090/IPeopleKIM/newKim", GetNewKimFromResponse);
 }
 
-/* synchronous requests are bad pracitce
-function httpGet(theUrl) {
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", theUrl, false); // false for synchronous request
-	xmlHttp.send(null);
-	return xmlHttp.responseText;
-}*/
-
-function SendKIMToBackend(theUrl){
+function SendKIMToBackend(theUrl) {
 	var obj = new Object();
 	obj.vorname = document.getElementById("vn_input").value
 	obj.nachname = document.getElementById("nn_input").value
 	obj.kim = document.getElementById("kim_input").value
+	obj.geburtstag = document.getElementById("birthday_input").value;
 	var jsonstring = JSON.stringify(obj);
 	document.getElementById("json_input").value = jsonstring;
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("PUT", theUrl + obj.kim, true); // true for asynchronous 
-	xmlHttp.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+	xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	xmlHttp.send(jsonstring);
 }
 
-function ParseJSONandDoLogic(response){
+function ParseJSONandDoLogic(response) {
 	var obj = JSON.parse(response);
-	document.getElementById("json_input").value =   obj.nachname + " " + obj.vorname;
+	document.getElementById("json_input").value = obj.nachname + " " + obj.vorname;
+}
+
+function GetNewKimFromResponse(response){
+	var obj = JSON.parse(response);
+	document.getElementById("kim_input").value = obj.kim;
 }
 
 function httpGetAsyncPassResponse(theUrl, callback) {
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.onreadystatechange = function () {
 		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-		callback(xmlHttp.responseText);
+			callback(xmlHttp.responseText);
 	}
 	xmlHttp.open("GET", theUrl, true); // true for asynchronous 
 	xmlHttp.send(null);
